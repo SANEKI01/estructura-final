@@ -1,0 +1,1463 @@
+/* ============================================================================
+   RESET Y CONFIGURACIÓN GLOBAL
+   ============================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+body {
+    background-color: #1a1a2e;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(28, 58, 113, 0.5) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(113, 28, 58, 0.5) 0%, transparent 20%);
+    color: #ffffff;
+    font-family: 'Pixelify Sans', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ============================================================================
+   BORDES PIXELADOS Y EFECTOS
+   ============================================================================ */
+.pixel-border {
+    border: 4px solid;
+    border-image: 
+        linear-gradient(45deg, 
+            #4dabf7 25%, 
+            transparent 25%, 
+            transparent 50%, 
+            #4dabf7 50%, 
+            #4dabf7 75%, 
+            transparent 75%, 
+            transparent) 4;
+    background: linear-gradient(135deg, rgba(30, 30, 50, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
+    box-shadow: 
+        0 0 0 2px #000,
+        0 8px 0 0 #000,
+        0 8px 0 2px #4dabf7,
+        0 0 20px rgba(77, 171, 247, 0.3);
+    position: relative;
+    border-radius: 8px;
+}
+
+.pixel-border::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #ffd700;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 
+        3px 3px 0 #8b4513,
+        6px 6px 0 rgba(0, 0, 0, 0.7);
+    letter-spacing: 2px;
+    line-height: 1.3;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.header h1 i {
+    margin-right: 15px;
+    color: #4dabf7;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 
+            3px 3px 0 #8b4513,
+            6px 6px 0 rgba(0, 0, 0, 0.7),
+            0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        text-shadow: 
+            3px 3px 0 #8b4513,
+            6px 6px 0 rgba(0, 0, 0, 0.7),
+            0 0 20px rgba(255, 215, 0, 0.8),
+            0 0 30px rgba(255, 215, 0, 0.4);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: #4dabf7;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 1px;
+}
+
+.game-header {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header-info {
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 170px;
+}
+
+.info-item .label {
+    color: #69db7c;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-item .label i {
+    font-size: 1.1rem;
+    animation: pulse 1.5s infinite;
+}
+
+.info-item .value {
+    color: #ffd700;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 2px solid #4dabf7;
+    min-width: 150px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.info-item .value:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(77, 171, 247, 0.4);
+}
+
+.info-item:nth-child(5) .value {
+    border-color: #9966ff;
+    color: #9966ff;
+    background: rgba(153, 102, 255, 0.1);
+}
+
+.info-item:nth-child(5) .label i {
+    color: #9966ff;
+}
+
+/* ============================================================================
+   LAYOUT PRINCIPAL
+   ============================================================================ */
+.game-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.game-info {
+    flex: 1;
+    min-width: 350px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.game-main {
+    flex: 2;
+    min-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ============================================================================
+   PANELES
+   ============================================================================ */
+.panel {
+    min-height: 200px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.panel-header {
+    background: linear-gradient(90deg, #4dabf7 0%, #228be6 100%);
+    padding: 12px 20px;
+    border-bottom: 4px solid #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.panel-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.panel-header h2 {
+    color: #fff;
+    font-size: 1.1rem;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 1px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-content {
+    padding: 20px;
+}
+
+/* ============================================================================
+   MAPA DEL JUEGO
+   ============================================================================ */
+.room-map {
+    margin-bottom: 25px;
+}
+
+.map-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    height: 200px;
+}
+
+.map-cell {
+    border: 3px solid #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.map-cell:hover::before {
+    opacity: 1;
+}
+
+.map-cell.empty {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: #444;
+    cursor: default;
+}
+
+.map-cell.room {
+    background: linear-gradient(135deg, #4dabf7 0%, #228be6 100%);
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-cell.room::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.map-cell.room:hover::after {
+    opacity: 1;
+    animation: shine 1.5s ease-in-out;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.map-cell.room:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(77, 171, 247, 0.5);
+}
+
+.map-cell.current {
+    background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+    border-color: #ffd700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); 
+    }
+    70% { 
+        transform: scale(1.02);
+        box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); 
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); 
+    }
+}
+
+/* ============================================================================
+   SALIDAS
+   ============================================================================ */
+.exits-section {
+    margin-top: 20px;
+}
+
+.exits-section h3 {
+    color: #ffd700;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 0 #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exits-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.exit-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background: rgba(77, 171, 247, 0.2);
+    border: 2px solid #4dabf7;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.exit-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.exit-item:hover::before {
+    left: 100%;
+}
+
+.exit-item:hover {
+    background: rgba(77, 171, 247, 0.4);
+    transform: translateX(5px);
+    border-color: #ffd700;
+}
+
+.exit-arrow {
+    background: #4dabf7;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 3px solid #000;
+    border-radius: 6px;
+    text-shadow: 1px 1px 0 #000;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.exit-item:hover .exit-arrow {
+    background: #ffd700;
+    color: #000;
+    transform: rotate(360deg);
+}
+
+.exit-name {
+    flex-grow: 1;
+    font-weight: bold;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.exit-item:hover .exit-name {
+    color: #ffd700;
+}
+
+/* ============================================================================
+   PERSONAJES
+   ============================================================================ */
+.characters-present {
+    margin-bottom: 25px;
+}
+
+.characters-present h3, .all-characters h3 {
+    color: #ffd700;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 0 #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.character-card {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+    border: 3px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.character-card:hover::before {
+    opacity: 1;
+}
+
+.character-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+}
+
+.character-portrait {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 3px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.character-card:hover .character-portrait {
+    transform: scale(1.1);
+    border-color: #ffd700;
+}
+
+.character-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.character-portrait i {
+    font-size: 2rem;
+    color: #4dabf7;
+}
+
+.character-details {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.character-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.character-status {
+    font-size: 0.8rem;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    font-family: 'Press Start 2P', cursive;
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ============================================================================
+   TODOS LOS PERSONAJES
+   ============================================================================ */
+.characters-all {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.character-full {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.character-full::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.character-full:hover::before {
+    left: 100%;
+}
+
+.character-full:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #4dabf7;
+    transform: translateX(5px);
+}
+
+.character-full.active {
+    background: rgba(77, 171, 247, 0.3);
+    border-color: #4dabf7;
+    animation: active-glow 2s infinite alternate;
+}
+
+@keyframes active-glow {
+    from { box-shadow: 0 0 5px rgba(77, 171, 247, 0.5); }
+    to { box-shadow: 0 0 15px rgba(77, 171, 247, 0.8); }
+}
+
+.character-portrait-small {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 2px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.character-full:hover .character-portrait-small {
+    transform: rotate(360deg);
+    border-color: #4dabf7;
+}
+
+.character-portrait-small i {
+    font-size: 1.2rem;
+    color: #4dabf7;
+}
+
+.character-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.character-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: white;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.character-role {
+    font-size: 0.7rem;
+    color: #cccccc;
+    margin-bottom: 3px;
+}
+
+.character-suspicion {
+    font-size: 0.7rem;
+    color: #ff6b6b;
+    font-family: 'Press Start 2P', cursive;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    animation: suspicion-pulse 1.5s infinite alternate;
+}
+
+@keyframes suspicion-pulse {
+    from { background: rgba(255, 107, 107, 0.1); }
+    to { background: rgba(255, 107, 107, 0.3); }
+}
+
+/* ============================================================================
+   PANTALLA DE JUEGO
+   ============================================================================ */
+.game-screen-container {
+    padding: 0;
+    overflow: hidden;
+    min-height: 600px;
+}
+
+.screen-header {
+    background: linear-gradient(90deg, #333 0%, #555 100%);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #000;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.screen-title {
+    color: #ffd700;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.screen-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.control-indicator {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 2px solid #4dabf7;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    cursor: help;
+    position: relative;
+}
+
+.control-indicator:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(77, 171, 247, 0.3);
+}
+
+.control-indicator:nth-child(3) {
+    background: rgba(153, 102, 255, 0.3);
+    border-color: #9966ff;
+}
+
+.control-indicator:nth-child(4) {
+    background: rgba(255, 215, 0, 0.3);
+    border-color: #ffd700;
+}
+
+.control-indicator:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+    border: 1px solid #4dabf7;
+}
+
+.game-screen {
+    width: 640px;
+    height: 480px;
+    margin: 20px auto;
+    position: relative;
+    background: #000;
+    border: 3px solid #444;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.8),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.screen-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(transparent 95%, rgba(0, 255, 255, 0.1) 100%),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 0%, transparent 1%) 0 0,
+        linear-gradient(rgba(0, 255, 255, 0.1) 0%, transparent 1%) 0 0;
+    background-size: 100% 4px, 4px 100%, 4px 4px;
+    pointer-events: none;
+    opacity: 0.3;
+    animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+    0% {
+        background-position: 0 0, 0 0, 0 0;
+    }
+    100% {
+        background-position: 0 1000px, 0 0, 0 0;
+    }
+}
+
+.screen-footer {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 2px solid #444;
+}
+
+.hint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffc107;
+    font-size: 0.9rem;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.hint i {
+    font-size: 1.2rem;
+    animation: hint-pulse 2s infinite alternate;
+}
+
+@keyframes hint-pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* ============================================================================
+   DIÁLOGO
+   ============================================================================ */
+.dialog-container {
+    padding: 0;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.dialog-header {
+    background: linear-gradient(90deg, #51cf66 0%, #40c057 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #000;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dialog-header h3 {
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 0 #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.dialog-speaker {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.speaker-portrait {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: 3px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.dialog-speaker:hover .speaker-portrait {
+    transform: scale(1.1);
+    border-color: #ffd700;
+}
+
+.speaker-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.speaker-portrait i {
+    font-size: 1.5rem;
+    color: #4dabf7;
+}
+
+.speaker-name {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    transition: all 0.3s ease;
+}
+
+.dialog-speaker:hover .speaker-name {
+    color: #ffd700;
+}
+
+.dialog-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 200px;
+}
+
+.dialog-text-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #4dabf7;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+    max-height: 200px;
+    position: relative;
+}
+
+.dialog-text-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(77, 171, 247, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+    animation: text-glow 3s infinite alternate;
+}
+
+@keyframes text-glow {
+    from { opacity: 0.3; }
+    to { opacity: 0.7; }
+}
+
+#dialog-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.dialog-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.dialog-option {
+    background: linear-gradient(135deg, #4dabf7 0%, #228be6 100%);
+    padding: 12px;
+    border-radius: 8px;
+    border: 3px solid #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+.dialog-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(77, 171, 247, 0.4);
+}
+
+.dialog-option:active {
+    transform: translateY(1px);
+}
+
+.dialog-option::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.dialog-option:hover::after {
+    left: 100%;
+}
+
+.dialog-option:nth-child(6),
+.dialog-option:nth-child(7) {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+}
+
+.dialog-option:nth-child(6):hover,
+.dialog-option:nth-child(7):hover {
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.dialog-option:nth-child(4) {
+    background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+}
+
+.dialog-option:nth-child(4):hover {
+    box-shadow: 0 5px 15px rgba(81, 207, 102, 0.4);
+}
+
+.dialog-option:nth-child(5) {
+    background: linear-gradient(135deg, #9966ff 0%, #7744dd 100%);
+}
+
+.dialog-option:nth-child(5):hover {
+    box-shadow: 0 5px 15px rgba(153, 102, 255, 0.4);
+}
+
+.dialog-footer {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 2px solid #444;
+    text-align: center;
+}
+
+.dialog-hint {
+    color: #cccccc;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+.footer {
+    margin-top: 30px;
+}
+
+.footer-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.footer p {
+    color: #4dabf7;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 0 #000;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.data-structures-info {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.data-structure-tag {
+    background: rgba(77, 171, 247, 0.2);
+    color: #69db7c;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #4dabf7;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    transition: all 0.3s ease;
+}
+
+.data-structure-tag:hover {
+    background: rgba(77, 171, 247, 0.4);
+    transform: translateY(-2px);
+}
+
+.graph-tag {
+    background: rgba(153, 102, 255, 0.3);
+    border-color: #9966ff;
+    color: #9966ff;
+    animation: graph-tag-pulse 2s infinite alternate;
+}
+
+@keyframes graph-tag-pulse {
+    from { 
+        box-shadow: 0 0 5px rgba(153, 102, 255, 0.5); 
+        transform: scale(1);
+    }
+    to { 
+        box-shadow: 0 0 15px rgba(153, 102, 255, 0.8); 
+        transform: scale(1.05);
+    }
+}
+
+.footer-note {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    border: 1px solid rgba(77, 171, 247, 0.3);
+}
+
+.footer-note p {
+    color: #cccccc;
+    font-size: 0.7rem;
+    margin: 0;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+/* ============================================================================
+   UTILIDADES
+   ============================================================================ */
+.text-center {
+    text-align: center;
+}
+
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* ============================================================================
+   SCROLLBAR PERSONALIZADA
+   ============================================================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #4dabf7 0%, #228be6 100%);
+    border-radius: 5px;
+    border: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #228be6 0%, #4dabf7 100%);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 1200px) {
+    .game-container {
+        flex-direction: column;
+    }
+    
+    .game-info, .game-main {
+        max-width: 100%;
+        min-width: auto;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .game-screen {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+        aspect-ratio: 4/3;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .header-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .info-item {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .screen-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .screen-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .control-indicator {
+        flex-grow: 1;
+        justify-content: center;
+    }
+    
+    .map-grid {
+        grid-template-columns: repeat(3, 1fr);
+        height: 150px;
+    }
+    
+    .map-cell {
+        font-size: 0.6rem;
+        padding: 5px;
+    }
+    
+    .characters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dialog-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .exits-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .dialog-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .dialog-speaker {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .screen-controls {
+        flex-direction: column;
+    }
+    
+    .control-indicator {
+        width: 100%;
+    }
+    
+    .map-grid {
+        height: 120px;
+    }
+    
+    .character-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .character-details {
+        width: 100%;
+    }
+    
+    .data-structures-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .data-structure-tag {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================================================
+   ANIMACIONES ESPECIALES
+   ============================================================================ */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-2px, 2px);
+        opacity: 0.9;
+    }
+    40% {
+        transform: translate(-2px, -2px);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(2px, 2px);
+        opacity: 0.9;
+    }
+    80% {
+        transform: translate(2px, -2px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+
+.glitch-text {
+    position: relative;
+    animation: glitch 3s infinite;
+}
+
+/* ============================================================================
+   ESTADOS DEL JUEGO
+   ============================================================================ */
+.game-over {
+    background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%) !important;
+    border-color: #ff0000 !important;
+    animation: game-over-pulse 1s infinite alternate;
+}
+
+@keyframes game-over-pulse {
+    from { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+    to { box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+}
+
+.victory {
+    background: linear-gradient(135deg, #51cf66 0%, #2b8a3e 100%) !important;
+    border-color: #00ff00 !important;
+    animation: victory-spin 3s infinite linear;
+}
+
+@keyframes victory-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================================================
+   EFECTOS DE TRANSICIÓN
+   ============================================================================ */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============================================================================
+   CARGANDO
+   ============================================================================ */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #4dabf7;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #4dabf7;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ============================================================================
+   IMPORTS DE FUENTES
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;500;600;700&display=swap');

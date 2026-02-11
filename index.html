@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Misterio de la Torta - Estructuras de Datos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-ghost"></i> EL MISTERIO DE LA TORTA</h1>
+            <p class="subtitle">¡Resuelve el misterio usando Estructuras de Datos!</p>
+            <div class="game-header">
+                <div class="pixel-border">
+                    <div class="header-info">
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-door-open"></i> SALA:</span>
+                            <span id="room-name" class="value">SALA DE ESTAR</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-comment"></i> DIÁLOGO:</span>
+                            <span id="dialogue-status" class="value">INACTIVO</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-user-friends"></i> PERSONAJES:</span>
+                            <span id="total-characters" class="value">4/4</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-clipboard-list"></i> PISTAS:</span>
+                            <span id="clues-count" class="value">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-project-diagram"></i> GRAFO:</span>
+                            <span id="graph-status" class="value">ACTIVO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="game-container">
+            <div class="game-info">
+                <div class="pixel-border panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-map"></i> MAPA Y SALIDAS</h2>
+                    </div>
+                    <div class="panel-content">
+                        <div class="room-map">
+                            <div class="map-grid">
+                                <div class="map-cell empty"></div>
+                                <div class="map-cell room" id="map-cocina">COCINA</div>
+                                <div class="map-cell empty"></div>
+                                <div class="map-cell room" id="map-angel">ÁNGEL</div>
+                                <div class="map-cell room current" id="map-sala">SALA</div>
+                                <div class="map-cell room" id="map-mariel">MARIEL</div>
+                                <div class="map-cell empty"></div>
+                                <div class="map-cell room" id="map-leia">LEIA</div>
+                                <div class="map-cell empty"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="exits-section">
+                            <h3><i class="fas fa-sign-out-alt"></i> SALIDAS DISPONIBLES:</h3>
+                            <div id="exits-list" class="exits-list">
+                                <div class="exit-item" data-direction="up">
+                                    <div class="exit-arrow">↑</div>
+                                    <div class="exit-name" id="exit-up">COCINA</div>
+                                </div>
+                                <div class="exit-item" data-direction="down">
+                                    <div class="exit-arrow">↓</div>
+                                    <div class="exit-name" id="exit-down">HAB. LEIA</div>
+                                </div>
+                                <div class="exit-item" data-direction="left">
+                                    <div class="exit-arrow">←</div>
+                                    <div class="exit-name" id="exit-left">HAB. ÁNGEL</div>
+                                </div>
+                                <div class="exit-item" data-direction="right">
+                                    <div class="exit-arrow">→</div>
+                                    <div class="exit-name" id="exit-right">HAB. MARIEL</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pixel-border panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-users"></i> PERSONAJES</h2>
+                    </div>
+                    <div class="panel-content">
+                        <div class="characters-present">
+                            <h3>EN ESTA SALA:</h3>
+                            <div id="characters-present" class="characters-grid">
+                                <!-- Los personajes se agregarán dinámicamente -->
+                            </div>
+                        </div>
+                        
+                        <div class="all-characters">
+                            <h3>TODOS LOS PERSONAJES:</h3>
+                            <div class="characters-all">
+                                <div class="character-full" data-character="papa">
+                                    <div class="character-portrait-small">
+                                        <i class="fas fa-male"></i>
+                                    </div>
+                                    <div class="character-info">
+                                        <div class="character-name">PAPÁ</div>
+                                        <div class="character-role">Investigador</div>
+                                        <div class="character-suspicion">SOSPECHA: 0</div>
+                                    </div>
+                                </div>
+                                <div class="character-full" data-character="mama">
+                                    <div class="character-portrait-small">
+                                        <i class="fas fa-female"></i>
+                                    </div>
+                                    <div class="character-info">
+                                        <div class="character-name">MAMÁ</div>
+                                        <div class="character-role">Cocinera</div>
+                                        <div class="character-suspicion">SOSPECHA: 1</div>
+                                    </div>
+                                </div>
+                                <div class="character-full" data-character="mariel">
+                                    <div class="character-portrait-small">
+                                        <i class="fas fa-user-girl"></i>
+                                    </div>
+                                    <div class="character-info">
+                                        <div class="character-name">MARIEL</div>
+                                        <div class="character-role">Hija mayor</div>
+                                        <div class="character-suspicion">SOSPECHA: 2</div>
+                                    </div>
+                                </div>
+                                <div class="character-full" data-character="angel">
+                                    <div class="character-portrait-small">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="character-info">
+                                        <div class="character-name">ÁNGEL</div>
+                                        <div class="character-role">Hijo</div>
+                                        <div class="character-suspicion">SOSPECHA: 3</div>
+                                    </div>
+                                </div>
+                                <div class="character-full" data-character="leia">
+                                    <div class="character-portrait-small">
+                                        <i class="fas fa-dog"></i>
+                                    </div>
+                                    <div class="character-info">
+                                        <div class="character-name">LEIA</div>
+                                        <div class="character-role">Mascota</div>
+                                        <div class="character-suspicion">SOSPECHA: 1</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-main">
+                <div class="pixel-border game-screen-container">
+                    <div class="screen-header">
+                        <div class="screen-title">
+                            <i class="fas fa-gamepad"></i> ZONA DE JUEGO
+                        </div>
+                        <div class="screen-controls">
+                            <div class="control-indicator" title="Interactuar">
+                                <i class="fas fa-hand-point-up"></i> E
+                            </div>
+                            <div class="control-indicator" title="Mover">
+                                <i class="fas fa-arrows-alt"></i> WASD
+                            </div>
+                            <div class="control-indicator" title="Analizar Grafos">
+                                <i class="fas fa-project-diagram"></i> Ctrl+G
+                            </div>
+                            <div class="control-indicator" title="Solución">
+                                <i class="fas fa-lightbulb"></i> Ctrl+Shift+S
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-screen">
+                        <canvas id="game-canvas" width="640" height="480"></canvas>
+                        <div class="screen-overlay"></div>
+                    </div>
+                    
+                    <div class="screen-footer">
+                        <div class="hint">
+                            <i class="fas fa-lightbulb"></i>
+                            <span id="game-hint">Llega a los bordes de la pantalla para cambiar de sala</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pixel-border dialog-container">
+                    <div class="dialog-header">
+                        <h3><i class="fas fa-comments"></i> DIÁLOGO</h3>
+                        <div class="dialog-speaker" id="dialog-speaker">
+                            <div class="speaker-portrait">
+                                <i class="fas fa-question"></i>
+                            </div>
+                            <div class="speaker-name">---</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dialog-content">
+                        <div class="dialog-text-container">
+                            <p id="dialog-text">Acércate a un personaje y presiona E para hablar.</p>
+                        </div>
+                        
+                        <div class="dialog-actions" id="dialog-options">
+                            <!-- Las opciones se agregarán dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <div class="dialog-footer">
+                        <div class="dialog-hint">
+                            <i class="fas fa-keyboard"></i> 
+                            <span>ESPACIO: Saltar diálogo | Ctrl+G: Analizar Grafos | Ctrl+Shift+S: Solución</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div class="pixel-border footer-content">
+                <p><i class="fas fa-code"></i> JUEGO CON ESTRUCTURAS DE DATOS | V4.0</p>
+                <div class="footer-links">
+                    <div class="data-structures-info">
+                        <span class="data-structure-tag">Árbol Binario</span>
+                        <span class="data-structure-tag">Listas Enlazadas</span>
+                        <span class="data-structure-tag">Pilas (Stack)</span>
+                        <span class="data-structure-tag">Colas (Queue)</span>
+                        <span class="data-structure-tag graph-tag"><i class="fas fa-project-diagram"></i> Grafos</span>
+                    </div>
+                </div>
+                <div class="footer-note">
+                    <p><i class="fas fa-info-circle"></i> Implementa: DFS, BFS, Dijkstra en análisis de relaciones</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Spritesheets predefinidos -->
+    <div id="image-preload" style="display: none;">
+        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Papa&backgroundColor=4dabf7" alt="Papá">
+        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Mama&backgroundColor=ff6b6b" alt="Mamá">
+        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Mariel&backgroundColor=cc5de8" alt="Mariel">
+        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Angel&backgroundColor=51cf66" alt="Ángel">
+        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Leia&backgroundColor=ff922b" alt="Leia">
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
